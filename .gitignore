@@ -1,13 +1,9 @@
-# ===============================
 # Dependencies
-# ===============================
 node_modules/
 .pnp
 .pnp.js
 
-# ===============================
-# Environment variables (DO NOT PUSH)
-# ===============================
+# Environment variables
 .env
 .env.local
 .env.development
@@ -17,37 +13,27 @@ node_modules/
 .env.production
 .env.production.local
 
-# ===============================
 # Logs
-# ===============================
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# ===============================
 # Build output
-# ===============================
 build/
 dist/
 coverage/
 
-# ===============================
-# OS generated files
-# ===============================
+# OS files
 .DS_Store
 Thumbs.db
 
-# ===============================
 # Editor files
-# ===============================
 .vscode/
 .idea/
 
-# ===============================
-# Optional: backend env files
-# ===============================
+# Backend env files
 backend/.env
 backend/.env.local
 backend/.env.development
