@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* =========================
+   SUBTLE HOVER ANIMATIONS
+========================= */
+
+/* Smooth transitions globally */
+* {
+  transition: all 160ms ease;
+}
+
+/* Card lift effect */
+.card {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+
+/* Image zoom inside cards */
+.card img {
+  transition: transform 260ms ease;
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+/* Button polish */
+button {
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Link hover polish */
+a {
+  transition: opacity 150ms ease;
+}
+
+a:hover {
+  opacity: 0.95;
+}
