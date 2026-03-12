@@ -1,3 +1,4 @@
+import Admin from "./pages/Admin";
 import NewsArticle from "./pages/NewsArticle";
 import Highlights from "./pages/Highlights";
 import AllstarsOver40 from "./pages/AllstarsOver40";
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/highlights" element={<Highlights />} />
           <Route path="/news/:id" element={<NewsArticle />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </BrowserRouter>
