@@ -222,8 +222,8 @@ export default function Highlights() {
 
         <div style={{ display: "grid", gap: 18 }}>
           <VideoTile
-            title="Training Session Highlights"
-            subtitle="More drills, more goals — tap to watch."
+            title="TJ Finishes From Close Range"
+            subtitle="TJ in the right place at the right time — calm tap-in finish."
             src="/videos/highlight2.mp4"
             vRef={v2Ref}
           />
