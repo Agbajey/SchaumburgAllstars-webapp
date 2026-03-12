@@ -25,13 +25,13 @@ function requireAdmin(req, res, next) {
   const serverKey = process.env.ADMIN_KEY;
 
   if (!serverKey) {
-    return res.status(500).send("ADMIN_KEY is not set on the server");
+    return res.status(500).json({ error: "ADMIN_KEY is not set on the server" });
   }
 
   const clientKey = req.header("x-admin-key");
 
   if (!clientKey || clientKey !== serverKey) {
-    return res.status(401).send("Unauthorized");
+    return res.status(401).json({ error: "Unauthorized" });
   }
 
   next();
@@ -132,7 +132,22 @@ Despite this, teammates and coaching staff remain confident in his professionali
    GET ALL NEWS
 ======================== */
 app.get("/news", (req, res) => {
-  res.json(news);
+  const sortedNews = [...news].sort((a, b) => b.id - a.id);
+  res.json(sortedNews);
+});
+
+/* ========================
+   GET SINGLE NEWS
+======================== */
+app.get("/news/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const item = news.find((n) => n.id === id);
+
+  if (!item) {
+    return res.status(404).json({ error: "News not found" });
+  }
+
+  res.json(item);
 });
 
 /* ========================
@@ -147,16 +162,18 @@ app.post("/news", requireAdmin, (req, res) => {
     });
   }
 
+  const maxId = news.length ? Math.max(...news.map((n) => n.id)) : 0;
+
   const newItem = {
-    id: news.length ? news[news.length - 1].id + 1 : 1,
-    title,
-    body,
-    image: image || "default.jpg",
-    tag: tag || "NEWS",
+    id: maxId + 1,
+    title: String(title).trim(),
+    body: String(body).trim(),
+    image: image ? String(image).trim() : "default.jpg",
+    tag: tag ? String(tag).trim() : "NEWS",
     date: new Date().toISOString().split("T")[0],
   };
 
-  news.push(newItem);
+  news.unshift(newItem);
 
   res.status(201).json(newItem);
 });
@@ -168,6 +185,7 @@ app.delete("/news/:id", requireAdmin, (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   const index = news.findIndex((n) => n.id === id);
+
   if (index === -1) {
     return res.status(404).json({ error: "News not found" });
   }

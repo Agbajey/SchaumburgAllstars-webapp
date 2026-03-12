@@ -7,9 +7,13 @@ export default function Admin() {
   const [body, setBody] = useState("");
 
   async function loadNews() {
-    const res = await fetch(`${API_BASE}/news`);
-    const data = await res.json();
-    setNews(data);
+    try {
+      const res = await fetch(`${API_BASE}/news`);
+      const data = await res.json();
+      setNews(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Load news error:", err);
+    }
   }
 
   useEffect(() => {
@@ -17,27 +21,51 @@ export default function Admin() {
   }, []);
 
   async function addNews() {
-    if (!title || !body) return;
+    if (!title.trim() || !body.trim()) return;
 
-    await fetch(`${API_BASE}/news`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, body }),
-    });
+    try {
+      const res = await fetch(`${API_BASE}/news`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-key": "allstarsadmin123!",
+        },
+        body: JSON.stringify({ title, body }),
+      });
 
-    setTitle("");
-    setBody("");
-    loadNews();
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Add news failed: ${res.status} ${text}`);
+      }
+
+      setTitle("");
+      setBody("");
+      await loadNews();
+    } catch (err) {
+      console.error("Add news error:", err);
+      alert("Failed to publish news.");
+    }
   }
 
   async function deleteNews(id) {
-    await fetch(`${API_BASE}/news/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      const res = await fetch(`${API_BASE}/news/${id}`, {
+        method: "DELETE",
+        headers: {
+          "x-admin-key": "allstarsadmin123!",
+        },
+      });
 
-    loadNews();
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Delete news failed: ${res.status} ${text}`);
+      }
+
+      await loadNews();
+    } catch (err) {
+      console.error("Delete news error:", err);
+      alert("Failed to delete news.");
+    }
   }
 
   return (
@@ -74,7 +102,6 @@ export default function Admin() {
             style={{ marginBottom: 10, padding: 10 }}
           >
             <strong>{n.title}</strong>
-
             <div style={{ marginTop: 6 }}>{n.body}</div>
 
             <button
