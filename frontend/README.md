@@ -2,21 +2,34 @@
 
 A full-stack football club web application built with **React and Node.js/Express** that displays players, fixtures, news, and match highlights.
 
-## Live Website
+This project demonstrates **full-stack development, cloud deployment, and DevOps workflows**.
+
+---
+
+# Live Website
+
 https://schaumburgallstarsfc.com
 
-## GitHub Repository
+---
+
+# GitHub Repository
+
 https://github.com/Agbajey/SchaumburgAllstars-webapp
 
-## Features
+---
+
+# Features
 
 - Players page
 - Fixtures page
 - Club news updates
 - Match highlights
-- Responsive design (mobile + desktop)
+- Responsive design (mobile and desktop)
+- Custom domain deployment
 
-## Tech Stack
+---
+
+# Tech Stack
 
 - React
 - Node.js
@@ -26,7 +39,9 @@ https://github.com/Agbajey/SchaumburgAllstars-webapp
 - Vercel
 - Render
 
-## Architecture
+---
+
+# Architecture
 
 - Frontend: React
 - Hosting: Vercel
@@ -36,11 +51,16 @@ https://github.com/Agbajey/SchaumburgAllstars-webapp
 - Version Control: GitHub
 
 **Flow:**  
-Users → Vercel (React Frontend) → Render API → Node.js Backend
+Users → Domain → Vercel (React Frontend) → Render API → Node.js Backend
 
-## Local Development
+---
 
-Clone the repository
+# Architecture Diagram
 
-```bash
-git clone https://github.com/Agbajey/SchaumburgAllstars-webapp.git
+```mermaid
+flowchart TD
+    U[Users] --> D[schaumburgallstarsfc.com]
+    D --> F[Vercel Frontend<br/>React App]
+    F --> B[Render Backend<br/>Node.js / Express API]
+    G[GitHub Repository] --> F
+    G --> B
