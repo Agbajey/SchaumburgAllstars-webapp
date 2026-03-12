@@ -16,7 +16,7 @@ export default function Highlights() {
   };
 
   const handleEnter = async (video) => {
-    if (!video) return;
+    if (!video || window.innerWidth <= 900) return;
     pauseAllExcept(video);
     video.muted = true;
 
@@ -28,7 +28,7 @@ export default function Highlights() {
   };
 
   const handleLeave = (video) => {
-    if (!video) return;
+    if (!video || window.innerWidth <= 900) return;
     video.pause();
     video.currentTime = 0;
     video.muted = true;
@@ -74,7 +74,7 @@ export default function Highlights() {
             src={src}
             playsInline
             preload="metadata"
-            controls={false}
+            controls
             style={{
               width: "100%",
               height: "100%",
@@ -84,7 +84,6 @@ export default function Highlights() {
             }}
           />
 
-          {/* Gradient overlay */}
           <div
             style={{
               position: "absolute",
@@ -95,7 +94,6 @@ export default function Highlights() {
             }}
           />
 
-          {/* Play badge */}
           <div
             style={{
               position: "absolute",
@@ -115,7 +113,6 @@ export default function Highlights() {
             ▶ HIGHLIGHT
           </div>
 
-          {/* Title overlay */}
           <div
             style={{
               position: "absolute",
@@ -123,6 +120,7 @@ export default function Highlights() {
               right: 14,
               bottom: 12,
               color: "white",
+              pointerEvents: "none",
             }}
           >
             <div
@@ -152,7 +150,6 @@ export default function Highlights() {
           </div>
         </div>
 
-        {/* Footer */}
         <div
           style={{
             padding: 12,
@@ -160,10 +157,11 @@ export default function Highlights() {
             justifyContent: "space-between",
             gap: 10,
             color: "rgba(255,255,255,0.9)",
+            flexWrap: "wrap",
           }}
         >
           <div style={{ fontSize: 12, opacity: 0.85 }}>
-            Hover to play (muted) • Click for sound
+            Tap to play with sound
           </div>
           <div
             style={{
@@ -188,7 +186,6 @@ export default function Highlights() {
     <div>
       <h2 style={{ marginBottom: 14 }}>Match Highlights</h2>
 
-      {/* ESPN-style header strip */}
       <div
         className="card"
         style={{
@@ -204,8 +201,8 @@ export default function Highlights() {
         </p>
       </div>
 
-      {/* Layout: featured left, two stacked right (responsive) */}
       <div
+        className="highlights-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1.6fr 1fr",
@@ -213,7 +210,6 @@ export default function Highlights() {
           alignItems: "start",
         }}
       >
-        {/* FEATURED */}
         <div>
           <VideoTile
             variant="featured"
@@ -224,11 +220,10 @@ export default function Highlights() {
           />
         </div>
 
-        {/* RIGHT COLUMN */}
         <div style={{ display: "grid", gap: 18 }}>
           <VideoTile
             title="Training Session Highlights"
-            subtitle="More drills, more goals — hover to preview."
+            subtitle="More drills, more goals — tap to watch."
             src="/videos/highlight2.mp4"
             vRef={v2Ref}
           />
@@ -242,7 +237,6 @@ export default function Highlights() {
         </div>
       </div>
 
-      {/* Mobile responsiveness (simple) */}
       <style>{`
         @media (max-width: 900px) {
           .highlights-grid {
