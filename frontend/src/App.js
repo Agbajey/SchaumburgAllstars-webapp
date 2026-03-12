@@ -60,7 +60,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/highlights" element={<Highlights />} />
           <Route path="/news/:id" element={<NewsArticle />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin-7654321" element={<Admin />} />
         </Routes>
       </div>
     </BrowserRouter>
